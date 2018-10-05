@@ -1,0 +1,20 @@
+{
+  "name": "writeaid",
+  "version": "1.0.0",
+  "description": "machine learning text analysis project",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "force-ssl-heroku": "^1.0.2",
+    "nodemon": "^1.17.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Akil Hamilton",
+  "license": "ISC"
+}
