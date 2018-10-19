@@ -17,20 +17,18 @@ app.use(require("express-session")({
     saveUninitialized: false
     
 }));
-//app.use(forceSsl);
 
-// fs.readdir("~/workspace/public/Meeting-Minutes", function(err, items) {
-//     console.log(items);
- 
-//     for (var i=0; i<items.length; i++) {
-//         console.log(items[i]);
-//     }
-// });
 var files = [];
 var newsletters = [];
+var special = Math.floor(Math.random()*1000000000000000);
 
+// Reading in text file
+var text;
+//console.log(process.cwd());
+text = fs.readFileSync(process.cwd()+'/form.txt');
+//console.log("Synchronous read: " + text.toString());
 
-
+// render the files to be downloaded on admin and social page
 var arrayOfFiles = fs.readdirSync(process.cwd() + "/public/Meeting-Minutes");
 arrayOfFiles.forEach( function (file) {
     files.push(file);
@@ -78,7 +76,28 @@ app.post("/contact", function(req, res){
     res.redirect('/contact');
     
 });
-// Still need to make the contact page
+
+
+// Special route
+app.get("/form-page/"+special, function(req, res){
+    res.render("form",{text:text});
+});
+
+app.get("/form-results", function(req, res){
+   res.render("form-pre"); 
+});
+
+app.post("/form-results", function(req, res){
+   var usr = req.body.usr;
+   var pswd = req.body.pswd;
+   
+   if (usr == "akil-vj-hamilton" && pswd == "akil-login-only"){
+       res.redirect("/form-page/"+special);
+   } else {
+       res.redirect("/");
+   }
+});
+
 
 
 
