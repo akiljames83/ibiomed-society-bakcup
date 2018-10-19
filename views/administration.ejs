@@ -110,17 +110,26 @@
                   <!--<center><h2 class="section-heading">How We Built Write-Aid</h2></center>-->
                   <h4 class="section-heading">Constitution</h4>
                   <p>
-                    Information coming soon.
+                    <a class="" href="Constitution.pdf" style="color:#f4483f;" target="_blank">Constitution PDF</a>
                   </p>
+                  
                   
                    <h4 class="section-heading">Operations Policy</h4>
                   <p>
-                    Information coming soon.
+                    <a class="" href="Operations Policy.pdf" style="color:#f4483f;" target="_blank">Operations Policy PDF</a>
                   </p>
                   
                   <h4 class="section-heading">Minutes</h4>
                   <p>
-                    Information coming soon.
+                    
+                    <!--<a class="" href="Meeting-Minutes/2018_06_26.docx" style="color:#f4483f;" target="_blank">Meeting Minutes Folder</a>-->
+                    <ul style="margin:1.5em;list-style-type: circle;color:#f4483f"> <!-- https://www.w3schools.com/cssref/pr_list-style-type.asp color:#f4483f-->
+                      
+                      <% files.forEach(function(file){ %>
+                        <li> <a href="Meeting-Minutes/<%= file %>" target="_blank"><%= file %></a> </li>
+                      <% }) %>
+                    </ul>
+                    
                   </p>
                   
                   

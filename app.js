@@ -2,6 +2,7 @@ var express     = require("express"),
     forceSsl    = require('force-ssl-heroku'),
     bodyParser  = require("body-parser"),
     cmd         = require('node-cmd'),
+    fs          = require('fs'),
     app         = express();
     
     
@@ -18,18 +19,39 @@ app.use(require("express-session")({
 }));
 //app.use(forceSsl);
 
+// fs.readdir("~/workspace/public/Meeting-Minutes", function(err, items) {
+//     console.log(items);
+ 
+//     for (var i=0; i<items.length; i++) {
+//         console.log(items[i]);
+//     }
+// });
+var files = [];
+var newsletters = [];
 
 
+
+var arrayOfFiles = fs.readdirSync(process.cwd() + "/public/Meeting-Minutes");
+arrayOfFiles.forEach( function (file) {
+    files.push(file);
+});
+
+var arrayOfFiles2 = fs.readdirSync(process.cwd() + "/public/Newsletters");
+arrayOfFiles2.forEach( function (file) {
+    newsletters.push(file);
+});
+//console.log(files);
 
 app.get("/", function(req, res){
     res.render("index");
 });
 app.get("/student-life", function(req, res){
-    res.render("studentlife");
+    res.render("studentlife", {newsletters:newsletters});
 });
 
 app.get("/administration", function(req, res){
-    res.render("administration");
+    console.log(files.length);
+    res.render("administration",{files:files,num:files.length});
 });
 app.get("/meet", function(req, res){
     res.render("meet");
