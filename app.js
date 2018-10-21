@@ -25,7 +25,13 @@ var special = Math.floor(Math.random()*1000000000000000);
 // Reading in text file
 var text;
 //console.log(process.cwd());
-text = fs.readFileSync(process.cwd()+'/form.txt');
+//text = fs.readFileSync(process.cwd()+'/form.txt');
+fs.readFile(process.cwd()+'/form.txt', function (err, data) {
+   if (err) {
+      return console.error(err);
+   }
+   text = data.toString();
+});
 //console.log("Synchronous read: " + text.toString());
 
 // render the files to be downloaded on admin and social page
