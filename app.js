@@ -86,6 +86,12 @@ app.post("/contact", function(req, res){
 
 // Special route
 app.get("/form-page/"+special, function(req, res){
+    fs.readFile(process.cwd()+'/form.txt', function (err, data) {
+       if (err) {
+          return console.error(err);
+       }
+       text = data.toString();
+    });
     res.render("form",{text:text});
 });
 
@@ -98,6 +104,7 @@ app.post("/form-results", function(req, res){
    var pswd = req.body.pswd;
    
    if (usr == "akil-vj-hamilton" && pswd == "akil-login-only"){
+       text = fs.readFileSync(process.cwd()+'/form.txt');
        res.redirect("/form-page/"+special);
    } else {
        res.redirect("/");
