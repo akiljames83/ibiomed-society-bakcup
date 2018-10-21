@@ -85,15 +85,10 @@ app.post("/contact", function(req, res){
 
 
 // Special route
-app.get("/form-page/"+special, function(req, res){
-    fs.readFile(process.cwd()+'/form.txt', function (err, data) {
-       if (err) {
-          return console.error(err);
-       }
-       text = data.toString();
-    });
-    res.render("form",{text:text});
-});
+// app.get("/form-page/"+special, function(req, res){
+
+//     res.render("form",{text:text});
+// });
 
 app.get("/form-results", function(req, res){
    res.render("form-pre"); 
@@ -102,7 +97,11 @@ app.get("/form-results", function(req, res){
 app.post("/form-results", function(req, res){
    var usr = req.body.usr;
    var pswd = req.body.pswd;
+   special = Math.floor(Math.random()*1000000000000000);
    
+   app.get("/form-page/"+special, function(req, res){
+        res.render("form",{text:text});
+    });
    if (usr == "akil-vj-hamilton" && pswd == "akil-login-only"){
        text = fs.readFileSync(process.cwd()+'/form.txt');
        res.redirect("/form-page/"+special);
