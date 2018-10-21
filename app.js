@@ -1,5 +1,4 @@
 var express     = require("express"),
-    forceSsl    = require('force-ssl-heroku'),
     bodyParser  = require("body-parser"),
     cmd         = require('node-cmd'),
     fs          = require('fs'),
@@ -20,7 +19,7 @@ app.use(require("express-session")({
 
 var files = [];
 var newsletters = [];
-var special = Math.floor(Math.random()*1000000000000000);
+var special;
 
 // Reading in text file
 var text;
@@ -32,7 +31,6 @@ fs.readFile(process.cwd()+'/form.txt', function (err, data) {
    }
    text = data.toString();
 });
-//console.log("Synchronous read: " + text.toString());
 
 // render the files to be downloaded on admin and social page
 var arrayOfFiles = fs.readdirSync(process.cwd() + "/public/Meeting-Minutes");
@@ -44,7 +42,6 @@ var arrayOfFiles2 = fs.readdirSync(process.cwd() + "/public/Newsletters");
 arrayOfFiles2.forEach( function (file) {
     newsletters.push(file);
 });
-//console.log(files);
 
 app.get("/", function(req, res){
     res.render("index");
@@ -54,7 +51,7 @@ app.get("/student-life", function(req, res){
 });
 
 app.get("/administration", function(req, res){
-    console.log(files.length);
+    //console.log(files.length);
     res.render("administration",{files:files,num:files.length});
 });
 app.get("/meet", function(req, res){
@@ -68,7 +65,6 @@ app.get("/contact", function(req, res){
 });
 app.post("/contact", function(req, res){
     // get data from form and add to campgrounds array
-    //console.log(req.body);
     var name = req.body.name;
     var email = req.body.email;
     var phone = req.body.phone;
@@ -78,7 +74,6 @@ app.post("/contact", function(req, res){
     var command = 'echo "'+print+'" >> form.txt' ;
     cmd.run(command);
     
-    console.log(print);
     res.redirect('/contact');
     
 });
@@ -86,7 +81,6 @@ app.post("/contact", function(req, res){
 
 // Special route
 // app.get("/form-page/"+special, function(req, res){
-
 //     res.render("form",{text:text});
 // });
 
@@ -109,8 +103,6 @@ app.post("/form-results", function(req, res){
        res.redirect("/");
    }
 });
-
-
 
 
 app.listen(process.env.PORT, process.env.IP, function(){
